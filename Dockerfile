@@ -12,6 +12,8 @@ RUN wget -q -O /inswapper_128.onnx https://huggingface.co/ezioruan/inswapper_128
 
 FROM python:3.10.9-slim
 
+RUN python -m venv venv
+
 RUN mkdir -p /app/handler
 RUN mkdir -p /app/checkpoints
 
@@ -32,6 +34,11 @@ COPY src .
 
 RUN pip install git+https://github.com/sajjjadayobi/FaceLib.git
 RUN pip install basicsr
+
+
+
+RUN sed -i 's/from torchvision.transforms.functional_tensor import rgb_to_grayscale/from torchvision.transforms.functiona import rgb_to_grayscale/' \
+    /usr/local/lib/python3.10/site-packages/basicsr/data/degradations.py
 
 COPY --from=download /CodeFormer /app/CodeFormer
 COPY --from=download /inswapper_128.onnx /app/checkpoints/inswapper_128.onnx
