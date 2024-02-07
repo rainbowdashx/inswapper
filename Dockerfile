@@ -1,10 +1,5 @@
 FROM alpine/git:2.36.2 as download
 
-RUN git lfs install
-RUN git clone https://huggingface.co/spaces/sczhou/CodeFormer --depth 1 /CodeFormer
-
-RUN rm -rf /CodeFormer/.git
-
 RUN apk add --no-cache wget
 RUN wget -q -O /inswapper_128.onnx https://huggingface.co/ezioruan/inswapper_128.onnx/resolve/main/inswapper_128.onnx?download=true
 
@@ -43,7 +38,7 @@ RUN pip3 install face_recognition
 RUN sed -i 's/from torchvision.transforms.functional_tensor import rgb_to_grayscale/from torchvision.transforms.functional import rgb_to_grayscale/' \
     /usr/local/lib/python3.10/site-packages/basicsr/data/degradations.py
 
-COPY --from=download /CodeFormer /app/CodeFormer
+COPY ./CodeFormer /app/CodeFormer
 COPY --from=download /inswapper_128.onnx /app/checkpoints/inswapper_128.onnx
 
 RUN pip install --no-cache-dir -r requirements.txt
