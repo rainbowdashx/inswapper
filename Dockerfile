@@ -16,13 +16,12 @@ RUN apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
 
 RUN apt-get update && apt-get install -y wget
 
-RUN apt-get update && apt-get install -y dos2unix && dos2unix /start.sh
-
 WORKDIR /app
 
 COPY requirements.txt requirements.txt
 COPY *.py ./
 COPY handler/ ./handler
+COPY src .
 
 COPY --from=download /inswapper_128.onnx /app/checkpoints/inswapper_128.onnx
 
@@ -30,7 +29,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 RUN python handler/cache.py
 
-COPY src .
+RUN apt-get update && apt-get install -y dos2unix && dos2unix /app/start.sh
+
 RUN chmod +x /app/start.sh
 CMD ["/app/start.sh"]
 
