@@ -21,6 +21,7 @@ RUN apt-get update && apt-get install ffmpeg libsm6 libxext6  -y
 
 RUN apt-get update && apt-get install -y wget
 
+RUN apt-get update && apt-get install -y git
 
 WORKDIR /app
 
