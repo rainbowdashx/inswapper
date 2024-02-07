@@ -1,3 +1,10 @@
+FROM alpine/git:2.36.2 as download
+
+RUN apk add --no-cache wget
+RUN wget -q -O inswapper_128.onnx https://huggingface.co/ezioruan/inswapper_128.onnx/resolve/main/inswapper_128.onnx?download=true
+
+
+
 FROM python:3.10.9-slim
 
 RUN mkdir -p /app/handler
@@ -15,7 +22,7 @@ COPY requirements.txt requirements.txt
 COPY *.py ./
 COPY handler/ ./handler
 
-RUN wget -q -O checkpoints/inswapper_128.onnx https://huggingface.co/ezioruan/inswapper_128.onnx/resolve/main/inswapper_128.onnx?download=true
+COPY --from=download /inswapper_128.onnx /app/checkpoints/inswapper_128.onnx
 
 RUN pip install --no-cache-dir -r requirements.txt
 
