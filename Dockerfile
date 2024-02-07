@@ -37,7 +37,7 @@ RUN pip install basicsr
 
 
 
-RUN sed -i 's/from torchvision.transforms.functional_tensor import rgb_to_grayscale/from torchvision.transforms.functiona import rgb_to_grayscale/' \
+RUN sed -i 's/from torchvision.transforms.functional_tensor import rgb_to_grayscale/from torchvision.transforms.functional import rgb_to_grayscale/' \
     /usr/local/lib/python3.10/site-packages/basicsr/data/degradations.py
 
 COPY --from=download /CodeFormer /app/CodeFormer
