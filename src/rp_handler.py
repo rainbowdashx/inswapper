@@ -13,6 +13,7 @@ from PIL import Image
 from io import BytesIO
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append('./CodeFormer/CodeFormer')
 
 from swapper import *
 from restoration import *
