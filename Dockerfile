@@ -1,7 +1,7 @@
 FROM alpine/git:2.36.2 as download
 
 RUN apk add --no-cache wget
-RUN wget -q -O inswapper_128.onnx https://huggingface.co/ezioruan/inswapper_128.onnx/resolve/main/inswapper_128.onnx?download=true
+RUN wget -q -O /inswapper_128.onnx https://huggingface.co/ezioruan/inswapper_128.onnx/resolve/main/inswapper_128.onnx?download=true
 
 
 
