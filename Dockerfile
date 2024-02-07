@@ -37,6 +37,7 @@ COPY --from=download /CodeFormer /app/CodeFormer
 COPY --from=download /inswapper_128.onnx /app/checkpoints/inswapper_128.onnx
 
 RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r CodeFormer/requirements.txt
 
 RUN python handler/cache.py
 
