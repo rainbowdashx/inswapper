@@ -25,6 +25,8 @@ RUN apt-get update && apt-get install -y wget
 
 RUN apt-get update && apt-get install -y git
 
+RUN sudo apt install cmake
+
 WORKDIR /app
 
 COPY requirements.txt requirements.txt
@@ -34,6 +36,7 @@ COPY src .
 
 RUN pip install git+https://github.com/sajjjadayobi/FaceLib.git
 RUN pip install basicsr
+RUN pip3 install face_recognition
 
 
 
