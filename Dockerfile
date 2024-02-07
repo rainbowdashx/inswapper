@@ -31,7 +31,7 @@ COPY handler/ ./handler
 COPY src .
 
 RUN pip install git+https://github.com/sajjjadayobi/FaceLib.git
-RUN pip isntall basicsr
+RUN pip install basicsr
 
 COPY --from=download /CodeFormer /app/CodeFormer
 COPY --from=download /inswapper_128.onnx /app/checkpoints/inswapper_128.onnx
