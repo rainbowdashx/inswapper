@@ -31,8 +31,8 @@ COPY src .
 
 RUN pip3 install face_recognition
 
-RUN sed -i 's/from torchvision.transforms.functional_tensor import rgb_to_grayscale/from torchvision.transforms.functional import rgb_to_grayscale/' \
-    /usr/local/lib/python3.10/site-packages/basicsr/data/degradations.py
+#RUN sed -i 's/from torchvision.transforms.functional_tensor import rgb_to_grayscale/from torchvision.transforms.functional import rgb_to_grayscale/' \
+#    /usr/local/lib/python3.10/site-packages/basicsr/data/degradations.py
 
 COPY ./CodeFormer /app/CodeFormer
 COPY --from=download /inswapper_128.onnx /app/checkpoints/inswapper_128.onnx
