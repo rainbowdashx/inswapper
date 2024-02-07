@@ -25,7 +25,7 @@ RUN apt-get update && apt-get install -y wget
 
 RUN apt-get update && apt-get install -y git
 
-RUN sudo apt install cmake
+RUN apt-get install cmake
 
 WORKDIR /app
 
