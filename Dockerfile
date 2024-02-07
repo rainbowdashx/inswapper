@@ -29,11 +29,7 @@ COPY *.py ./
 COPY handler/ ./handler
 COPY src .
 
-RUN pip install git+https://github.com/sajjjadayobi/FaceLib.git
-RUN pip install basicsr
 RUN pip3 install face_recognition
-
-
 
 RUN sed -i 's/from torchvision.transforms.functional_tensor import rgb_to_grayscale/from torchvision.transforms.functional import rgb_to_grayscale/' \
     /usr/local/lib/python3.10/site-packages/basicsr/data/degradations.py
