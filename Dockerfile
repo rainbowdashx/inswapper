@@ -7,8 +7,6 @@ RUN wget -q -O /inswapper_128.onnx https://huggingface.co/ezioruan/inswapper_128
 
 FROM python:3.10.9-slim
 
-RUN python -m venv venv
-
 RUN mkdir -p /app/handler
 RUN mkdir -p /app/checkpoints
 
