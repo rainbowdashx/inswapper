@@ -83,7 +83,7 @@ def run_inference(inference_request):
     upscale = int(inference_request.get("upscale", 1))
     codeformer_fidelity = float(inference_request.get("codeformer_fidelity", 0.5))
 
-    restored_image = run_restoration(result_image,background_enhance,face_upsample,upscale,codeformer_fidelity)    
+    restored_image = run_restoration(result_image,background_enhance,face_upsample,upscale,codeformer_fidelity)
 
     restored_image_base64 = pil_image_to_base64(restored_image)
 
