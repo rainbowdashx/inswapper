@@ -2,4 +2,4 @@
 
 echo "Worker Initiated"
 echo "Starting RunPod Handler"
-python -u /rp_handler.py
+python -u /src/rp_handler.py
