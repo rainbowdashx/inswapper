@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install -y wget
 
 RUN apt-get update && apt-get install -y git
 
-RUN apt-get update && apt-get install -y cmake
+#RUN apt-get update && apt-get install -y cmake
 
 WORKDIR /app
 
@@ -29,10 +29,10 @@ COPY *.py ./
 COPY handler/ ./handler
 COPY src .
 
-RUN pip3 install face_recognition
+#RUN pip3 install face_recognition
 
-RUN sed -i 's/from torchvision.transforms.functional_tensor import rgb_to_grayscale/from torchvision.transforms.functional import rgb_to_grayscale/' \
-    /usr/local/lib/python3.10/site-packages/basicsr/data/degradations.py
+#RUN sed -i 's/from torchvision.transforms.functional_tensor import rgb_to_grayscale/from torchvision.transforms.functional import rgb_to_grayscale/' \
+    #/usr/local/lib/python3.10/site-packages/basicsr/data/degradations.py
 
 COPY ./CodeFormer /app/CodeFormer
 COPY --from=download /inswapper_128.onnx /app/checkpoints/inswapper_128.onnx
