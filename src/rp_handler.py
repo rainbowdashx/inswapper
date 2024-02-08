@@ -37,7 +37,7 @@ def pil_image_to_base64(pil_image):
     img_str = base64.b64encode(buffered.getvalue())
     return img_str.decode('utf-8')
 
-def run_restoration(result_image):
+def run_restoration(result_image,background_enhance=False,face_upsample = True, upscale=1,codeformer_fidelity = 0.5):
 
     check_ckpts()
     upsampler = set_realesrgan()
@@ -56,10 +56,10 @@ def run_restoration(result_image):
 
     result_image = cv2.cvtColor(np.array(result_image), cv2.COLOR_RGB2BGR)
     result_image = face_restoration(result_image, 
-                                    args.background_enhance, 
-                                    args.face_upsample, 
-                                    args.upscale, 
-                                    args.codeformer_fidelity,
+                                    background_enhance, 
+                                    face_upsample, 
+                                    upscale, 
+                                    codeformer_fidelity,
                                     upsampler,
                                     codeformer_net,
                                     device)
@@ -78,7 +78,12 @@ def run_inference(inference_request):
 
     result_image = process(source_img, target_img, -1, -1, model)
 
-    restored_image = run_restoration(result_image)    
+    background_enhance = bool(inference_request.get("background_enhance", False))
+    face_upsample = bool(inference_request.get("face_upsample", True))
+    upscale = int(inference_request.get("upscale", 1))
+    codeformer_fidelity = float(inference_request.get("codeformer_fidelity", 0.5))
+
+    restored_image = run_restoration(result_image,background_enhance,face_upsample,upscale,codeformer_fidelity)    
 
     restored_image_base64 = pil_image_to_base64(restored_image)
 
