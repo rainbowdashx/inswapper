@@ -7,7 +7,7 @@ sys.path.append('./CodeFormer/CodeFormer')
 from swapper import *
 from restoration import *
 
-model = "./checkpoints/inswapper_128.onnx"
+model = "/app/checkpoints/inswapper_128.onnx"
 providers = onnxruntime.get_available_providers()
 face_analyser = getFaceAnalyser(model, providers)
 
