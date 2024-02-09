@@ -119,10 +119,4 @@ def handler(event):
 
 if __name__ == "__main__":
     print("Service is ready. Starting RunPod...")
-
-    import pycuda.autoinit
-    import pycuda.driver as cuda
-
-    print("cude version: ", cuda.get_version())
-
     runpod.serverless.start({"handler": handler})
