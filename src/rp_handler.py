@@ -43,6 +43,9 @@ def run_restoration(result_image,background_enhance=False,face_upsample = True, 
     upsampler = set_realesrgan()
     device = torch.device("mps" if torch.backends.mps.is_available() else "cuda" if torch.cuda.is_available() else "cpu")
 
+    print("Loading CodeFormer...")
+    print("on device: ", device)
+
     codeformer_net = ARCH_REGISTRY.get("CodeFormer")(dim_embd=512,
                                                         codebook_size=1024,
                                                         n_head=8,
@@ -83,14 +86,30 @@ def run_inference(inference_request):
     upscale = int(inference_request.get("upscale", 1))
     codeformer_fidelity = float(inference_request.get("codeformer_fidelity", 0.5))
 
-    restored_image = run_restoration(result_image,background_enhance,face_upsample,upscale,codeformer_fidelity)
+    shouldRunRestoration = bool(inference_request.get("shouldRunRestoration", False))
 
-    restored_image_base64 = pil_image_to_base64(restored_image)
-
-    result = {
-        "image": restored_image_base64
-    }
-
+    if shouldRunRestoration:
+        print("Running restoration... \
+            with background_enhance: {} \
+                face_upsample: {} \
+                upscale: {} \
+                codeformer_fidelity: {}".format(background_enhance, face_upsample, upscale, codeformer_fidelity))
+        restored_image = run_restoration(result_image,background_enhance,face_upsample,upscale,codeformer_fidelity)
+        restored_image_base64 = pil_image_to_base64(restored_image)
+        result = {
+            "image": restored_image_base64,
+            "restored": True,
+            "background_enhance": background_enhance,
+            "face_upsample": face_upsample,
+            "upscale": upscale,
+            "codeformer_fidelity": codeformer_fidelity
+        }
+    else:
+        result_image_base64 = pil_image_to_base64(result_image)
+        result = {
+            "image": result_image_base64
+        }
+    
     return result
 
 def handler(event):
