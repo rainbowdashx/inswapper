@@ -1,5 +1,7 @@
 # inswapper
 
+Runpod Serverless handler for https://github.com/haofanwang/inswapper
+
 ## Installation
 
 ```bash
